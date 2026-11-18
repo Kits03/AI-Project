@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SupportPilot - AI Ticket Resolution Agent</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f7f6;
+        }
+        .navbar-brand {
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .card {
+            border: none;
+            border-radius: 12px;
+        }
+        .stat-card {
+            border-left: 4px solid #0d6efd;
+            transition: transform 0.2s;
+        }
+        .stat-card:hover {
+            transform: translateY(-3px);
+        }
+        .badge-category {
+            font-size: 0.85rem;
+            padding: 6px 12px;
+            border-radius: 50rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <i class="bi bi-robot text-primary fs-3 me-2"></i>
+                <span>SupportPilot <span class="text-muted fw-light fs-6">| AI Agent Milestone 1</span></span>
+            </a>
+            <span class="badge bg-success px-3 py-2">System Status: Active</span>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        
+        <!-- Top Metrics Row -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-4">
+                <div class="card stat-card shadow-sm p-3 bg-white">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0 bg-primary bg-opacity-10 text-primary p-3 rounded-3 fs-3">
+                            <i class="bi bi-ticket-detailed"></i>
+                        </div>
+                        <div class="ms-3">
+                            <h6 class="text-muted mb-1">Total Processed Tickets</h6>
+                            <h3 class="fw-bold mb-0">{{ total_tickets }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card stat-card border-success shadow-sm p-3 bg-white" style="border-left-color: #198754 !important;">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0 bg-success bg-opacity-10 text-success p-3 rounded-3 fs-3">
+                            <i class="bi bi-bullseye"></i>
+                        </div>
+                        <div class="ms-3">
+                            <h6 class="text-muted mb-1">Model Accuracy Target</h6>
+                            <h3 class="fw-bold mb-0">&ge; 90.0%</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card stat-card border-info shadow-sm p-3 bg-white" style="border-left-color: #0dcaf0 !important;">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0 bg-info bg-opacity-10 text-info p-3 rounded-3 fs-3">
+                            <i class="bi bi-cpu"></i>
+                        </div>
+                        <div class="ms-3">
+                            <h6 class="text-muted mb-1">Active Algorithm</h6>
+                            <h5 class="fw-bold mb-0">Logistic Regression + TF-IDF</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Workspace Row -->
+        <div class="row g-4">
+            <!-- Left Column: Submission Form -->
+            <div class="col-lg-5">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-white py-3 border-bottom-0">
+                        <h5 class="fw-bold mb-0"><i class="bi bi-plus-circle text-primary me-2"></i> Submit New Support Ticket</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="/predict" method="POST">
+                            
+                            <!-- New Ticket Title / Subject Input -->
+                            <div class="mb-3">
+                                <label for="ticket_title" class="form-label fw-semibold text-secondary">Ticket Title / Subject</label>
+                                <input type="text" class="form-control bg-light" id="ticket_title" name="ticket_title" placeholder="e.g., VPN Connection Timeout" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="ticket" class="form-label fw-semibold text-secondary">Ticket Description</label>
+                                <textarea class="form-control bg-light" id="ticket" name="ticket" rows="4" placeholder="Describe the IT issue in detail..." required></textarea>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <label for="severity" class="form-label fw-semibold text-secondary">Severity</label>
+                                    <select class="form-select bg-light" id="severity" name="severity">
+                                        <option value="Low">Low</option>
+                                        <option value="Medium" selected>Medium</option>
+                                        <option value="High">High</option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <label for="priority" class="form-label fw-semibold text-secondary">Priority</label>
+                                    <select class="form-select bg-light" id="priority" name="priority">
+                                        <option value="Normal" selected>Normal</option>
+                                        <option value="Urgent">Urgent</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold shadow-sm">
+                                <i class="bi bi-magic me-2"></i> Classify & Route Ticket
+                            </button>
+                        </form>
+
+                        <!-- Recent Prediction Success Alert -->
+                        {% if prediction %}
+                        <div class="alert alert-success mt-4 border-0 shadow-sm" role="alert">
+                            <h6 class="alert-heading fw-bold mb-1"><i class="bi bi-check-circle-fill me-1"></i> Successfully Classified!</h6>
+                            <hr class="my-2">
+                            <p class="mb-1 small"><strong>Ticket:</strong> "{{ ticket_text }}"</p>
+                            <p class="mb-0"><strong>Category:</strong> <span class="badge bg-danger badge-category">{{ prediction }}</span></p>
+                            <div class="mt-2 text-muted" style="font-size: 0.75rem;">Database ID: #{{ ticket_id }}</div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Live Database Activity Log -->
+            <div class="col-lg-7">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-white py-3 border-bottom-0 d-flex justify-content-between align-items-center">
+                        <h5 class="fw-bold mb-0"><i class="bi bi-table text-primary me-2"></i> Live SQLite Ingestion Log</h5>
+                        <span class="badge bg-secondary">Recent Submissions</span>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th class="ps-3">ID</th>
+                                        <th>Ticket Details</th>
+                                        <th>Category</th>
+                                        <th>Severity</th>
+                                        <th class="pe-3">Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if recent_tickets %}
+                                        {% for t in recent_tickets %}
+                                        <tr>
+                                            <td class="ps-3 fw-bold text-muted">#{{ t['id'] }}</td>
+                                            <td>
+                                                <div class="text-truncate" style="max-width: 220px;" title="{{ t['description'] }}">
+                                                    {{ t['description'] }}
+                                                </div>
+                                            </td>
+                                            <td><span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25">{{ t['category'] }}</span></td>
+                                            <td><span class="badge bg-secondary bg-opacity-10 text-dark">{{ t['severity'] }}</span></td>
+                                            <td class="pe-3 small text-muted">{{ t['created_at'].split(' ')[1] if t['created_at'] else 'Just now' }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="5" class="text-center py-4 text-muted">
+                                                <i class="bi bi-inbox fs-2 d-block mb-2"></i>
+                                                No tickets logged yet. Submit one on the left!
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
