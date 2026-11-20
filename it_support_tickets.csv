@@ -1,0 +1,37 @@
+ticket,category
+My Wi-Fi keeps disconnecting every few minutes in the office.,Network
+Cannot connect to the office LAN cable network.,Network
+Internet speed is extremely slow today on my workstation.,Network
+Ethernet port is not recognizing my connection.,Network
+Wi-Fi authentication failed repeatedly on floor 3.,Network
+Network timeout errors when trying to load internal web apps.,Network
+Microsoft Excel crashes every time I open large spreadsheets.,Software
+Need assistance installing the new Adobe Acrobat reader update.,Software
+Visual Studio Code is throwing a missing dependency error.,Software
+Zoom application refuses to launch or stay open.,Software
+Please install the latest version of Python and pip on my laptop.,Software
+Antivirus software is blocking my developer tools.,Software
+I forgot my domain login password and need a reset.,Password
+My account is locked out after three failed login attempts.,Password
+How do I change my corporate email password?,Password
+"Password expiration warning received, need to update credentials.",Password
+"Locked out of the HR portal, please reset my PIN.",Password
+Forgotten password recovery link is not arriving in my inbox.,Password
+GlobalProtect VPN connection fails with error 404.,VPN
+Unable to connect to company network from home via VPN.,VPN
+VPN authentication token is rejecting my security code.,VPN
+Secure remote access keeps dropping packets every minute.,VPN
+Need help configuring Cisco AnyConnect VPN profile.,VPN
+VPN login credentials unauthorized when working remotely.,VPN
+My external monitor is not displaying any signal from the dock.,Hardware
+"Laptop keyboard keys are unresponsive, especially the spacebar.",Hardware
+Printer on the second floor is jammed and showing a red light.,Hardware
+My computer battery is not charging past 10 percent.,Hardware
+Mouse and USB ports stopped working suddenly.,Hardware
+Hard drive is making a clicking noise and running very slow.,Hardware
+Blue screen error crash code 0x0000000A occurred this morning.,System
+Computer freezes completely during system startup.,System
+Windows update failed and now the machine is stuck in a reboot loop.,System
+System performance is extremely sluggish after the latest patch.,System
+Virtual machine environment is throwing memory allocation errors.,System
+Server node is unresponsive and needs a hard reboot.,System
